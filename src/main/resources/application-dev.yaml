@@ -1,0 +1,25 @@
+spring:
+
+#  config jpa hibernate
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    generate-ddl: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  #  datasource
+  datasource:
+    username: postgres
+    password: "010104"
+    url: jdbc:postgresql://localhost:5432/makara_jwt
+    driver-class-name: org.postgresql.Driver
+
+#  application name
+  application:
+    name: makara-jwt
+
+server:
+  port: 8888
