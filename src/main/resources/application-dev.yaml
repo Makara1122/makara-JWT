@@ -1,6 +1,10 @@
 spring:
+  security:
+    user:
+      name: makara
+      password: 123456
 
-#  config jpa hibernate
+  #  config jpa hibernate
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -23,3 +27,7 @@ spring:
 
 server:
   port: 8888
+
+springdoc:
+  swagger-ui:
+    path: /

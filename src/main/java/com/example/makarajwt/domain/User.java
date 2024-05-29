@@ -16,12 +16,13 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String userUuid;
     private String username;
     private String password;
     private String email;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_role_tbl",
             joinColumns = @JoinColumn(name = "user_id"),
