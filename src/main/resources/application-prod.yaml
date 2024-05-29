@@ -1,2 +1,33 @@
+spring:
+  security:
+    user:
+      name: makara
+      password: 123456
+
+  #  config jpa hibernate
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    generate-ddl: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  #  datasource
+  datasource:
+    username: postgres
+    password: qwerty
+    url: jdbc:postgresql://152.42.163.114:5434/makara-tester
+    driver-class-name: org.postgresql.Driver
+
+  #  application name
+  application:
+    name: makara-jwt
+
 server:
-  port: 9999
+  port: 8888
+
+springdoc:
+  swagger-ui:
+    path: /
