@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -29,6 +30,13 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles;
+
+    boolean isAccountExpired;
+    boolean isAccountLocked;
+    boolean isCredentialsExpired;
+    boolean isDisabled;
+    boolean isBlocked;
+    private LocalDateTime createAt;
 
 //    this is comment
 }

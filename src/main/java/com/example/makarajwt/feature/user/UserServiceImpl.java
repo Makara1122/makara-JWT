@@ -5,6 +5,7 @@ import com.example.makarajwt.feature.user.userDto.UserRequest;
 import com.example.makarajwt.feature.user.userDto.UserResponse;
 import com.example.makarajwt.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -29,6 +30,7 @@ public class UserServiceImpl implements UserService {
     public UserResponse register(UserRequest userRequest) {
         var user = userMapper.toUser(userRequest);
         user.setUserUuid(UUID.randomUUID().toString());
+        user.setPassword(new BCryptPasswordEncoder().encode(userRequest.password()));
         Set<Role> roles = new HashSet<>();
         for (var role : userRequest.roles()) {
             var r = new Role();

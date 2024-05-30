@@ -17,7 +17,7 @@ public class UserRestController {
     private final UserService userService;
 
     @GetMapping("")
-    public BaseResponse<Object> ok() {
+    public BaseResponse<Object> getAllUsers() {
         return BaseResponse.builder()
                 .payload(userService.getAllUsers())
                 .message("Get all Success")

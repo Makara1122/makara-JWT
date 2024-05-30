@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -32,6 +33,7 @@ public class DataInitializer {
         if (authorityRepository.count() == 0) {
             for (var auth : authorities) {
                 var authority = new Authority();
+                authority.setAuthorityUuid(UUID.randomUUID().toString());
                 authority.setName(auth);
                 authorityRepository.save(authority);
             }
@@ -48,10 +50,12 @@ public class DataInitializer {
                     var r = new Role();
                     r.setName(role);
                     r.setAuthorities(allAuthoritie);
+                    r.setRoleUuid(UUID.randomUUID().toString());
                     roleRepository.save(r);
                 } else if (role.equals("USER")) {
                     var r = new Role();
                     r.setName(role);
+                    r.setRoleUuid(UUID.randomUUID().toString());
                     r.setAuthorities(allAuthoritie.stream().filter(a -> a.getName().equals("READ")).collect(Collectors.toSet()));
                     roleRepository.save(r);
                 }
