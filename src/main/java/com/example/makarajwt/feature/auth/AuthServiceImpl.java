@@ -23,7 +23,7 @@ public class AuthServiceImpl {
 
     public AuthResponse login (AuthRequest authRequest) {
         Authentication authentication = daoAuthenticationProvider.authenticate(
-                new UsernamePasswordAuthenticationToken(authRequest.password(),authRequest.email())
+                new UsernamePasswordAuthenticationToken(authRequest.email(),authRequest.password())
         );
         return tokenGenerator.generateTokens(authentication);
     }

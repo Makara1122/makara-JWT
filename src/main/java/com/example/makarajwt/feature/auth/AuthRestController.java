@@ -22,6 +22,9 @@ public class AuthRestController {
 
     @PostMapping("/login")
     public BaseResponse<Object> login (@RequestBody AuthRequest authRequest) {
+
+        System.out.println(authRequest + " Here is AuthRequest");
+
         return BaseResponse
                 .builder()
                 .payload(authService.login(authRequest))

@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -63,7 +64,8 @@ public class SecurityConfig {
                                  "/api/v1/users/**",
                                 "/api/v1/users/register").
                         permitAll()
-                        .requestMatchers("/api/v1/contents/read").hasRole("USER")
+                        .requestMatchers("/api/v1/contents/read").hasAnyRole("USER","ADMIN")
+                        .requestMatchers("/api/v1/authors","/api/v1/contents/**").hasRole("ADMIN")
                                 .requestMatchers("/",
                                         "/v3/api-docs/**",
                                         "/swagger-ui/**",

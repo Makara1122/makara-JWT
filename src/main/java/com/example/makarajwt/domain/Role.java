@@ -20,7 +20,7 @@ public class Role implements GrantedAuthority {
 
     private String roleUuid;
     private String name;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "role_authority_tbl",
             joinColumns = @JoinColumn(name = "role_id"),
