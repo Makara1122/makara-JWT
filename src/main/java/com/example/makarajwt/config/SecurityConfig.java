@@ -73,7 +73,7 @@ public class SecurityConfig {
                                         "/swagger-resources/**")
                                 .permitAll().
 
-                        anyRequest().
+                         anyRequest().
                         authenticated()).
                 httpBasic(AbstractHttpConfigurer::disable).
                 csrf(AbstractHttpConfigurer::disable).
