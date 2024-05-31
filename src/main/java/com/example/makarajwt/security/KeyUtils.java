@@ -77,38 +77,40 @@ public class KeyUtils {
 
         }else {
 
-            if(Arrays.asList(environment.getActiveProfiles()).contains("prod")){
-                throw new RuntimeException("public and private key doesn't exist !");
+//            if(Arrays.asList(environment.getActiveProfiles()).contains("dev")){
+//                throw new RuntimeException("public and private key doesn't exist !");
+//            }
+
+            File directory = new File("access-refresh-token-keys");
+            if(!directory.exists()){
+                directory.mkdirs();
             }
+
+            try{
+                // we are going to generate a keypair
+                KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
+                keyPairGenerator.initialize(2048);
+                keyPair = keyPairGenerator.generateKeyPair();
+
+
+                try(FileOutputStream fos = new FileOutputStream(publicKeyPath)){
+                    X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyPair.getPublic().getEncoded());
+                    fos.write(keySpec.getEncoded());
+                }
+                try(FileOutputStream fos = new FileOutputStream(privateKeyFile)){
+                    PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyPair.getPrivate().getEncoded());
+                    fos.write(keySpec.getEncoded());
+                }
+
+            }catch (NoSuchAlgorithmException | IOException ex ){
+                throw new RuntimeException(ex);
+            }
+
+            return keyPair;
         }
 
 
-        File directory = new File("access-refresh-token-keys");
-        if(!directory.exists()){
-            directory.mkdirs();
-        }
 
-        try{
-            // we are going to generate a keypair
-            KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
-            keyPairGenerator.initialize(2048);
-            keyPair = keyPairGenerator.generateKeyPair();
-
-
-            try(FileOutputStream fos = new FileOutputStream(publicKeyPath)){
-                X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyPair.getPublic().getEncoded());
-                fos.write(keySpec.getEncoded());
-            }
-            try(FileOutputStream fos = new FileOutputStream(privateKeyFile)){
-                PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyPair.getPrivate().getEncoded());
-                fos.write(keySpec.getEncoded());
-            }
-
-        }catch (NoSuchAlgorithmException | IOException ex ){
-            throw new RuntimeException(ex);
-        }
-
-        return keyPair;
 
     }
     // get public key and private key for the access token and refresh token for other class to use
