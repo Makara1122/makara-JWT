@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
         for (var role : userRequest.roles()) {
             var r = new Role();
             r.setName(role);
-            r.setRoleUuid(UUID.randomUUID().toString());
+
             roles.add(r);
         }
         user.setRoles(roles);

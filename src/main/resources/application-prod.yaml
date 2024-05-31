@@ -7,7 +7,7 @@ spring:
   #  config jpa hibernate
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
     generate-ddl: true
     properties:
@@ -18,7 +18,7 @@ spring:
   datasource:
     username: postgres
     password: qwerty
-    url: jdbc:postgresql://152.42.163.114:5434/makara-tester
+    url: jdbc:postgresql://152.42.163.114:5434/makara-tester-10
     driver-class-name: org.postgresql.Driver
 
   #  application name
