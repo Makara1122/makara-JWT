@@ -1,13 +1,46 @@
+##spring:
+##  security:
+##    user:
+##      name: makara
+##      password: 123456
+##
+##  #  config jpa hibernate
+##  jpa:
+##    hibernate:
+##      ddl-auto: create-drop
+##    show-sql: true
+##    generate-ddl: true
+##    properties:
+##      hibernate:
+##        dialect: org.hibernate.dialect.PostgreSQLDialect
+##
+##  #  datasource
+##  datasource:
+##    username: postgres
+##    password: "010104"
+##    url: jdbc:postgresql://localhost:5432/makara_jwt
+##    driver-class-name: org.postgresql.Driver
+##
+###  application name
+##  application:
+##    name: makara-jwt
+##
+##server:
+##  port: 8888
+##
+##springdoc:
+##  swagger-ui:
+##    path: /
+##
+##
+#
 #spring:
-#  security:
-#    user:
-#      name: makara
-#      password: 123456
+#
 #
 #  #  config jpa hibernate
 #  jpa:
 #    hibernate:
-#      ddl-auto: create-drop
+#      ddl-auto: update
 #    show-sql: true
 #    generate-ddl: true
 #    properties:
@@ -17,11 +50,11 @@
 #  #  datasource
 #  datasource:
 #    username: postgres
-#    password: "010104"
-#    url: jdbc:postgresql://localhost:5432/makara_jwt
+#    password: qwerty
+#    url: jdbc:postgresql://152.42.163.114:5434/makara-tester
 #    driver-class-name: org.postgresql.Driver
 #
-##  application name
+#  #  application name
 #  application:
 #    name: makara-jwt
 #
@@ -33,42 +66,9 @@
 #    path: /
 #
 #
-
-spring:
-
-
-  #  config jpa hibernate
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
-    generate-ddl: true
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-
-  #  datasource
-  datasource:
-    username: postgres
-    password: qwerty
-    url: jdbc:postgresql://152.42.163.114:5434/makara-tester
-    driver-class-name: org.postgresql.Driver
-
-  #  application name
-  application:
-    name: makara-jwt
-
-server:
-  port: 8888
-
-springdoc:
-  swagger-ui:
-    path: /
-
-
-
-ACCESS_TOKEN_PRIVATE_KEY_PATH: access-refresh-token-keys/access-token-private.key
-ACCESS_TOKEN_PUBLIC_KEY_PATH: access-refresh-token-keys/access-token-public.key
-# This is for the refresh token
-REFRESH_TOKEN_PRIVATE_KEY_PATH: access-refresh-token-keys/refresh-token-private.key
-REFRESH_TOKEN_PUBLIC_KEY_PATH: access-refresh-token-keys/refresh-token-public.key
+#
+#ACCESS_TOKEN_PRIVATE_KEY_PATH: access-refresh-token-keys/access-token-private.key
+#ACCESS_TOKEN_PUBLIC_KEY_PATH: access-refresh-token-keys/access-token-public.key
+## This is for the refresh token
+#REFRESH_TOKEN_PRIVATE_KEY_PATH: access-refresh-token-keys/refresh-token-private.key
+#REFRESH_TOKEN_PUBLIC_KEY_PATH: access-refresh-token-keys/refresh-token-public.key

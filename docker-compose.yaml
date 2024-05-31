@@ -7,7 +7,7 @@ services:
   makara-spring:
     container_name: 'spring-boot-app-2024'
     depends_on:
-      - elasticsearch1
+      - elasticsearch
     build:
       context: .
       dockerfile: Dockerfile
@@ -20,16 +20,16 @@ services:
     volumes:
       - '/myproject:/home/ite/media'
     networks:
-      - elastic3
+      - elastic4
   pgsync-python:
     build: ./pgsync-python
     container_name: pgsync-python
     depends_on:
-      - elasticsearch1
+      - elasticsearch
     volumes:
       - ./pgsync-python:/app
     networks:
-      - elastic3
+      - elastic4
 
 
 
@@ -37,7 +37,7 @@ services:
    image: docker.elastic.co/kibana/kibana:7.13.2
    container_name: kibana1
    depends_on:
-    - elasticsearch1
+    - elasticsearch
    environment:
     - ELASTICSEARCH_URL=http://elasticsearch:9200
     - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
@@ -46,11 +46,11 @@ services:
    ports:
     - "5601:5601"
    networks:
-    - elastic3
+    - elastic4
 
   elasticsearch:
-   image: docker.elastic.co/elasticsearch/elasticsearch:7.13.2
-   container_name: elasticsearch1
+   image: docker.elastic.co/elasticsearch/elasticsearch:7.8.0
+   container_name: elasticsearch
    environment:
     - discovery.type=single-node
    ports:
@@ -59,13 +59,13 @@ services:
    volumes:
     - esdata:/usr/share/elasticsearch/data
    networks:
-    - elastic3
+    - elastic4
 
 
 volumes:
   esdata:
 
 networks:
-  elastic3:
+  elastic4:
     driver: bridge
 

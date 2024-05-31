@@ -29,7 +29,7 @@ def fetch_all_data(pg_conn):
     try:
         with pg_conn.cursor(cursor_factory=DictCursor) as cursor:
             cursor.execute("""
-                SELECT u.id, u.name,u.email,u.create_at,u.username,u_user_uuid, r.name as role
+                SELECT u.id, u.name,u.email,u.create_at,u.username,u.user_uuid, r.name as role
                 FROM user_tbl u JOIN  user_role_tbl ur ON  ur.user_id = u.id JOIN role_tbl r ON ur.role_id = r.id
                 ORDER BY u.id ASC  -- Ensuring a consistent order
             """)
