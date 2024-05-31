@@ -42,7 +42,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
         in = SecuritySchemeIn.HEADER
 )
 
-@EnableElasticsearchAuditing
+
 @EnableElasticsearchRepositories(basePackages = "com.example.makarajwt.feature.elastic")
 @EnableJpaRepositories(basePackages =
         {"com.example.makarajwt.feature.user",
