@@ -16,7 +16,6 @@ public record UserRequest(
         boolean isAccountLocked,
         boolean isCredentialsExpired,
         boolean isDisabled,
-        boolean isBlocked,
-        LocalDateTime createAt
+        boolean isBlocked
 ) {
 }
