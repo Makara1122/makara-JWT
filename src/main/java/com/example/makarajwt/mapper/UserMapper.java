@@ -15,6 +15,11 @@ import java.util.stream.Collectors;
 public interface UserMapper {
 
     @Mapping(target = "roles", expression = "java(mapRoles(user.getRoles()))")
+    @Mapping(target = "isAccountExpired", source = "accountExpired")
+    @Mapping(target = "isAccountLocked", source = "accountLocked")
+    @Mapping(target = "isCredentialsExpired", source = "credentialsExpired")
+    @Mapping(target = "isDisabled", source = "disabled")
+    @Mapping(target = "isBlocked", source = "blocked")
     UserResponse toUserResponse(User user);
 
     @Name("mapRoles")
@@ -25,5 +30,10 @@ public interface UserMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "userUuid", ignore = true)
     @Mapping(target = "roles", ignore = true)
+    @Mapping(target = "accountExpired", source = "isAccountExpired")
+    @Mapping(target = "accountLocked", source = "isAccountLocked")
+    @Mapping(target = "credentialsExpired", source = "isCredentialsExpired")
+    @Mapping(target = "disabled", source = "isDisabled")
+    @Mapping(target = "blocked", source = "isBlocked")
     User toUser(UserRequest userRequest);
 }
