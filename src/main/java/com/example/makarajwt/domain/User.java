@@ -1,9 +1,11 @@
 package com.example.makarajwt.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -13,6 +15,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "user_tbl")
+@Document(indexName = "elastic_2024")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

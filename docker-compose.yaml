@@ -1,0 +1,71 @@
+
+
+version: '3.8'
+
+services:
+
+  makara-spring:
+    container_name: 'spring-boot-app-2024'
+    depends_on:
+      - elasticsearch
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=elastic
+    ports:
+      - '8885:8888'
+    volumes:
+      - '/myproject:/home/ite/media'
+    networks:
+      - elastic3
+  pgsync-python:
+    build: ./pgsync-python
+    container_name: pgsync-python
+    depends_on:
+      - elasticsearch
+    volumes:
+      - ./pgsync-python:/app
+    networks:
+      - elastic3
+
+
+
+  kibana:
+   image: docker.elastic.co/kibana/kibana:7.13.2
+   container_name: kibana
+   depends_on:
+    - elasticsearch
+   environment:
+    - ELASTICSEARCH_URL=http://elasticsearch:9200
+    - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+    - ELASTICSEARCH_USERNAME=elastic
+    - xpack.monitoring.ui.container.elasticsearch.enabled=true
+   ports:
+    - "5601:5601"
+   networks:
+    - elastic3
+
+  elasticsearch:
+   image: docker.elastic.co/elasticsearch/elasticsearch:7.13.2
+   container_name: elasticsearch
+   environment:
+    - discovery.type=single-node
+   ports:
+    - "9200:9200"
+
+   volumes:
+    - esdata:/usr/share/elasticsearch/data
+   networks:
+    - elastic3
+
+
+volumes:
+  esdata:
+
+networks:
+  elastic3:
+    driver: bridge
+

@@ -1,5 +1,8 @@
 spring:
-
+  elasticsearch:
+    uris: http://elasticsearch:9200
+  main:
+    allow-bean-definition-overriding=true:
 
   #  config jpa hibernate
   jpa:

@@ -9,6 +9,9 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.elasticsearch.config.EnableElasticsearchAuditing;
+import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 
@@ -38,6 +41,16 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         bearerFormat = "JWT",
         in = SecuritySchemeIn.HEADER
 )
+
+@EnableElasticsearchAuditing
+@EnableElasticsearchRepositories(basePackages = "com.example.makarajwt.feature.elastic")
+@EnableJpaRepositories(basePackages =
+        {"com.example.makarajwt.feature.user",
+         "com.example.makarajwt.feature.role",
+         "com.example.makarajwt.feature.authority",
+         "com.example.makarajwt.feature.author",
+         "com.example.makarajwt.feature.content",})
+
 
 
 public class MakaraJwtApplication {
