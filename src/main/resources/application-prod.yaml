@@ -15,13 +15,15 @@ spring:
   #  datasource
   datasource:
     username: postgres
-    password: qwerty
-    url: jdbc:postgresql://152.42.163.114:5434/makara-tester-10
+    password: "010104"
+    url: jdbc:postgresql://localhost:5432/makara_jwt
     driver-class-name: org.postgresql.Driver
 
   #  application name
   application:
     name: makara-jwt
+  main:
+    allow-bean-definition-overriding: true
 
 server:
   port: 8888
