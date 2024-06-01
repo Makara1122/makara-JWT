@@ -31,7 +31,7 @@ public class ContentServiceImpl implements ContentService {
     @Override
     public ContentResponse updateContent(String contentUuid, ContentRequest contentRequest) {
         var contentForUpdate = contentRepository.findContentByContentUuid(contentUuid).orElseThrow(()-> new RuntimeException("Content not found"));
-        contentForUpdate.setContentName(contentRequest.contentName());
+        contentForUpdate.setContent_name(contentRequest.content_name());
         contentForUpdate.setContentDescription(contentRequest.contentDescription());
         return contentMapper.toContentResponse(contentRepository.save(contentForUpdate));
     }

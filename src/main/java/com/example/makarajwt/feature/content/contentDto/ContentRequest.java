@@ -4,7 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record ContentRequest(
-        String contentName,
+        String content_name,
         String contentDescription
 ) {
 }

@@ -18,7 +18,23 @@ public class ESUtils {
 
 
         return authoSuggestQuery.
-                field("role").field("username").field("email").
+                field("username").
+                query(partialUserName).
+                analyzer("standard").
+                build();
+    }
+
+    public static Supplier<Query> createSupplierAutoSuggest2(String patialUserName){
+        Supplier<Query> query = () -> Query.of(q -> q.match(createAutoSuggestMatchQuery2(patialUserName)));
+        return query;
+    }
+
+    public static MatchQuery createAutoSuggestMatchQuery2(String partialUserName) {
+        val authoSuggestQuery = new MatchQuery.Builder();
+
+
+        return authoSuggestQuery.
+                field("email").
                 query(partialUserName).
                 analyzer("standard").
                 build();

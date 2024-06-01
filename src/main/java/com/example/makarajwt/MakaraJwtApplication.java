@@ -43,13 +43,14 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 )
 
 
-@EnableElasticsearchRepositories(basePackages = "com.example.makarajwt.feature.elastic")
+@EnableElasticsearchRepositories(basePackages = {"com.example.makarajwt.feature.elastic",
+})
 @EnableJpaRepositories(basePackages =
         {"com.example.makarajwt.feature.user",
          "com.example.makarajwt.feature.role",
          "com.example.makarajwt.feature.authority",
          "com.example.makarajwt.feature.author",
-         "com.example.makarajwt.feature.content",})
+         "com.example.makarajwt.feature.content"})
 
 
 

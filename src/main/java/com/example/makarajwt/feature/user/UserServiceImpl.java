@@ -1,6 +1,7 @@
 package com.example.makarajwt.feature.user;
 
 import com.example.makarajwt.domain.Role;
+import com.example.makarajwt.feature.elastic.ElasticUserRepository;
 import com.example.makarajwt.feature.user.userDto.UserRequest;
 import com.example.makarajwt.feature.user.userDto.UserResponse;
 import com.example.makarajwt.mapper.UserMapper;
@@ -20,6 +21,7 @@ public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final ElasticUserRepository elasticUserRepository;
 
     @Override
     public List<UserResponse> getAllUsers() {
@@ -39,6 +41,9 @@ public class UserServiceImpl implements UserService {
             roles.add(r);
         }
         user.setRoles(roles);
+
+
+
         return userMapper.toUserResponse(userRepository.save(user));
     }
 }

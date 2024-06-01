@@ -1,5 +1,6 @@
 package com.example.makarajwt.config;
 
+import co.elastic.clients.util.ContentType;
 import com.example.makarajwt.security.CustomUserDetailService;
 import com.example.makarajwt.security.JwtToUserConverter;
 import com.example.makarajwt.security.KeyUtils;
@@ -11,6 +12,15 @@ import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import lombok.RequiredArgsConstructor;
 
+import org.apache.http.HttpHeaders;
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponseInterceptor;
+import org.apache.http.auth.AuthScope;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.CredentialsProvider;
+import org.apache.http.impl.client.BasicCredentialsProvider;
+import org.apache.http.message.BasicHeader;
+import org.elasticsearch.client.RestClient;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -34,13 +44,12 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.web.BearerTokenAuthenticationEntryPoint;
 import org.springframework.security.oauth2.server.resource.web.access.BearerTokenAccessDeniedHandler;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @RequiredArgsConstructor
@@ -49,6 +58,23 @@ public class SecurityConfig {
     private final JwtToUserConverter jwtToUserConverter;
     private final CustomUserDetailService customUserDetailService;
     private final KeyUtils keyUtils;
+
+    @Bean
+    public RestClient getRestClient() {
+        final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
+        credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials("", ""));
+        return RestClient.builder(new HttpHost("localhost", 9200))
+                .setHttpClientConfigCallback(httpClientBuilder -> {
+                    httpClientBuilder.disableAuthCaching();
+                    httpClientBuilder.setDefaultHeaders(List.of(
+                            new BasicHeader(
+                                    HttpHeaders.CONTENT_TYPE, ContentType.APPLICATION_JSON)));
+                    httpClientBuilder.addInterceptorLast((HttpResponseInterceptor)
+                            (response, context) ->
+                                    response.addHeader("X-Elastic-Product", "Elasticsearch"));
+                    return httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider);
+                }).build();
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -70,9 +96,7 @@ public class SecurityConfig {
                                 "/api/v1/auth/login",
                                 "/api/v1/auth/register",
                                 "api/v1/auth/refresh-token",
-                                 "/api/v1/users/**",
-                                "/api/v1/users/autoSuggest/**",
-                                "/api/v1/users/register").
+                                 "/api/v1/users/**").
                         permitAll()
                         .requestMatchers("/api/v1/contents/read").hasAnyRole("USER","ADMIN")
                         .requestMatchers("/api/v1/authors","/api/v1/contents/**").hasRole("ADMIN")

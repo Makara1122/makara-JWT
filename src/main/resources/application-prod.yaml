@@ -1,11 +1,16 @@
 spring:
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+
   elasticsearch:
-    uris: http://152.42.163.114:9200/
+    uris: http://localhost:9200/
 
   #  config jpa hibernate
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     show-sql: true
     generate-ddl: true
     properties:
@@ -15,8 +20,9 @@ spring:
   #  datasource
   datasource:
     username: postgres
-    password: "010104"
-    url: jdbc:postgresql://localhost:5432/makara_jwt
+    password: qwerty
+    url: jdbc:postgresql://34.142.186.206:5432/makara_test
+
     driver-class-name: org.postgresql.Driver
 
   #  application name

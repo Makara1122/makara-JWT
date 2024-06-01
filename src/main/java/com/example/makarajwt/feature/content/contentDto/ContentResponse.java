@@ -6,7 +6,7 @@ import lombok.Builder;
 public record ContentResponse(
         Long id,
         String contentUuid,
-        String contentName,
+        String content_name,
         String contentDescription
 ) {
 }
